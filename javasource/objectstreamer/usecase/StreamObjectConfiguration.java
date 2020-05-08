@@ -1,4 +1,4 @@
-package objectstreamer.usecases;
+package objectstreamer.usecase;
 
 import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;

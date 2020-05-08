@@ -1,4 +1,4 @@
-package objectstreamer.usecases;
+package objectstreamer.usecase;
 
 import java.util.NoSuchElementException;
 

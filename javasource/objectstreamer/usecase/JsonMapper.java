@@ -1,4 +1,4 @@
-package objectstreamer.usecases;
+package objectstreamer.usecase;
 
 import java.io.IOException;
 import java.util.List;

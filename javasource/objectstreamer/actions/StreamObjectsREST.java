@@ -13,10 +13,11 @@ import com.mendix.core.Core;
 import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-import objectstreamer.usecases.JsonMapperImpl;
-import objectstreamer.usecases.ObjectStreamer;
-import objectstreamer.usecases.StreamObjectConfiguration;
-import objectstreamer.usecases.StreamObjectConfigurationFactory;
+
+import objectstreamer.usecase.StreamObjectConfigurationFactory;
+import objectstreamer.usecase.JsonMapperImpl;
+import objectstreamer.usecase.ObjectStreamer;
+import objectstreamer.usecase.StreamObjectConfiguration;
 
 public class StreamObjectsREST extends CustomJavaAction<java.lang.Void>
 {

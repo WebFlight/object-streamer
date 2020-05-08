@@ -1,4 +1,4 @@
-package objectstreamer.usecases;
+package objectstreamer.usecase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
