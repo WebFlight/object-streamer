@@ -26,7 +26,6 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 	private java.lang.String entityforExport;
 	private java.lang.String sortAttribute;
 	private IMendixObject __file;
-	@SuppressWarnings("unused")
 	private system.proxies.FileDocument file;
 
 	public StreamObjectsFile(IContext context, java.lang.Long batchSize, java.lang.String exportMapping, java.lang.String entityforExport, java.lang.String sortAttribute, IMendixObject file)
@@ -45,6 +44,7 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 		this.file = __file == null ? null : system.proxies.FileDocument.initialize(getContext(), __file);
 
 		// BEGIN USER CODE
+		file.getClass();
 		IContext context = this.getContext();
 		
 		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s", entityforExport))
