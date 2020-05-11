@@ -9,11 +9,11 @@
 
 package objectstreamer.actions;
 
+import java.util.Optional;
 import com.mendix.core.Core;
 import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-
 import objectstreamer.usecase.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.ObjectStreamer;
@@ -21,18 +21,20 @@ import objectstreamer.usecase.StreamObjectConfiguration;
 
 public class StreamObjectsREST extends CustomJavaAction<java.lang.Void>
 {
+	private java.lang.String entityforExport;
+	private java.lang.String constraint;
+	private java.lang.String sortAttribute;
 	private java.lang.Long batchSize;
 	private java.lang.String exportMapping;
-	private java.lang.String entityforExport;
-	private java.lang.String sortAttribute;
 
-	public StreamObjectsREST(IContext context, java.lang.Long batchSize, java.lang.String exportMapping, java.lang.String entityforExport, java.lang.String sortAttribute)
+	public StreamObjectsREST(IContext context, java.lang.String entityforExport, java.lang.String constraint, java.lang.String sortAttribute, java.lang.Long batchSize, java.lang.String exportMapping)
 	{
 		super(context);
+		this.entityforExport = entityforExport;
+		this.constraint = constraint;
+		this.sortAttribute = sortAttribute;
 		this.batchSize = batchSize;
 		this.exportMapping = exportMapping;
-		this.entityforExport = entityforExport;
-		this.sortAttribute = sortAttribute;
 	}
 
 	@java.lang.Override
@@ -40,8 +42,9 @@ public class StreamObjectsREST extends CustomJavaAction<java.lang.Void>
 	{
 		// BEGIN USER CODE
 		IContext context = this.getContext();
+		String notNullableConstaint = Optional.ofNullable(this.constraint).orElse("");
 		
-		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s", entityforExport))
+		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s%s", this.entityforExport, notNullableConstaint))
 				.setAmount(batchSize.intValue())
 				.addSort(sortAttribute, true);
 		
