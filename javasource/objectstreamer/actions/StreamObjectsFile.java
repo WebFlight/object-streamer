@@ -9,34 +9,35 @@
 
 package objectstreamer.actions;
 
+import java.util.Optional;
 import com.mendix.core.Core;
 import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-
 import objectstreamer.usecase.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfiguration;
-
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 {
+	private java.lang.String entityforExport;
+	private java.lang.String constraint;
+	private java.lang.String sortAttribute;
 	private java.lang.Long batchSize;
 	private java.lang.String exportMapping;
-	private java.lang.String entityforExport;
-	private java.lang.String sortAttribute;
 	private IMendixObject __file;
 	private system.proxies.FileDocument file;
 
-	public StreamObjectsFile(IContext context, java.lang.Long batchSize, java.lang.String exportMapping, java.lang.String entityforExport, java.lang.String sortAttribute, IMendixObject file)
+	public StreamObjectsFile(IContext context, java.lang.String entityforExport, java.lang.String constraint, java.lang.String sortAttribute, java.lang.Long batchSize, java.lang.String exportMapping, IMendixObject file)
 	{
 		super(context);
+		this.entityforExport = entityforExport;
+		this.constraint = constraint;
+		this.sortAttribute = sortAttribute;
 		this.batchSize = batchSize;
 		this.exportMapping = exportMapping;
-		this.entityforExport = entityforExport;
-		this.sortAttribute = sortAttribute;
 		this.__file = file;
 	}
 
@@ -48,8 +49,9 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 		// BEGIN USER CODE
 		file.getClass();
 		IContext context = this.getContext();
+		String notNullableConstaint = Optional.ofNullable(this.constraint).orElse("");
 		
-		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s", entityforExport))
+		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s%s", this.entityforExport, notNullableConstaint))
 				.setAmount(batchSize.intValue())
 				.addSort(sortAttribute, true);
 		

@@ -43,7 +43,7 @@
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
-							<excludeGroupIds>com.mendix</excludeGroupIds>
+							<excludeGroupIds>com.mendix,javax.servlet-api</excludeGroupIds>
 						</configuration>
 					</execution>
 				</executions>
@@ -87,6 +87,20 @@
 							<target>
 								<ant antfile="${project.basedir}/build.xml">
 									<target name="exportModulePackage" />
+								</ant>
+							</target>
+						</configuration>
+					</execution>
+					<execution>
+						<id>create-release</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<ant antfile="${project.basedir}/build.xml">
+									<target name="createRelease" />
 								</ant>
 							</target>
 						</configuration>
