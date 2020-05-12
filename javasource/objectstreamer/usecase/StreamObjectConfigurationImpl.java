@@ -10,14 +10,16 @@ import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+import objectstreamer.domain.port.JsonMapper;
+
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 	
 	private IContext context;
 	private XPathBasicQuery xPathQuery;
 	private JsonMapper jsonMapper;
 	
-	protected StreamObjectConfigurationImpl () {
-		
+	protected StreamObjectConfigurationImpl (JsonMapper jsonMapper) {
+		this.jsonMapper = jsonMapper;
 	}
 	
 	public void setContext(IContext context) {

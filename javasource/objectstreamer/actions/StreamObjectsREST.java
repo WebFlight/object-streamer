@@ -14,7 +14,8 @@ import com.mendix.core.Core;
 import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-import objectstreamer.usecase.StreamObjectConfigurationFactory;
+
+import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfiguration;

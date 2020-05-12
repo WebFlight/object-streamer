@@ -13,6 +13,8 @@ import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+import objectstreamer.domain.port.JsonMapper;
+
 public class JsonMapperImpl implements JsonMapper{
 	
 	private String exportMapping;
