@@ -12,7 +12,6 @@ package objectstreamer.actions;
 import java.util.Optional;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.ObjectStreamer;
