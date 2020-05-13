@@ -10,9 +10,9 @@ public interface StreamObjectConfiguration {
 	
 	public void setContext(IContext context);
 	
-	public void setXPathQuery(XPathBasicQuery xPathQuery);
+	public JsonMapper getJsonMapper();
 	
-	public void setJsonMapper(JsonMapper jsonMapper);
+	public void setXPathQuery(XPathBasicQuery xPathQuery);
 
 	void setFile(IMendixObject file);
 

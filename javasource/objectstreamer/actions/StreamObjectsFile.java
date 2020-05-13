@@ -63,10 +63,10 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setFile(__file);
 		streamObjectConfiguration.setXPathQuery(xPathQuery);
 		
-		JsonMapperImpl jsonMapper = new JsonMapperImpl();
+		
+		JsonMapperImpl jsonMapper = (JsonMapperImpl) streamObjectConfiguration.getJsonMapper();
 		jsonMapper.setExportMapping(this.exportMapping);
 		
-		streamObjectConfiguration.setJsonMapper(jsonMapper);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();

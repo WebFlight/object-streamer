@@ -26,14 +26,6 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 		this.context = context;
 	}
 	
-	public void setJsonMapper(JsonMapper jsonMapper) {
-		this.jsonMapper = jsonMapper;
-	}
-	
-	public JsonMapper getJsonMapper() {
-		return this.jsonMapper;
-	}
-	
 	public void setFile(IMendixObject file) {
 		
 	}
@@ -48,6 +40,10 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	
 	protected XPathBasicQuery getXpathQuery() {
 		return this.xPathQuery;
+	}
+	
+	public JsonMapper getJsonMapper() {
+		return this.jsonMapper;
 	}
 	
 	protected OutputStreamWriter getOutputStreamWriter(OutputStream outputStream) {

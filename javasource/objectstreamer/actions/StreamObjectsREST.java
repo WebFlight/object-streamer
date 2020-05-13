@@ -55,10 +55,8 @@ public class StreamObjectsREST extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setContext(context);
 		streamObjectConfiguration.setXPathQuery(xPathQuery);
 		
-		JsonMapperImpl jsonMapper = new JsonMapperImpl();
+		JsonMapperImpl jsonMapper = (JsonMapperImpl) streamObjectConfiguration.getJsonMapper();
 		jsonMapper.setExportMapping(this.exportMapping);
-		
-		streamObjectConfiguration.setJsonMapper( jsonMapper);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
