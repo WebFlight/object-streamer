@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
-import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.port.ActionExecutor;
