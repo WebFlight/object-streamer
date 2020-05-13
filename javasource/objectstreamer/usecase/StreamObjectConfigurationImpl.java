@@ -34,8 +34,12 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 		
 	}
 	
-	public void setXPathQuery(XPathBasicQuery xPathQuery) {
-		this.xPathQuery = xPathQuery;
+	public XPathBasicQuery getXPathQuery() {
+		return this.xPathQuery;
+	}
+	
+	public void setXPathQuery(String entityForExport, String constraint) {
+		this.xPathQuery = xPathGenerator.generate(entityForExport, constraint); 
 	}
 	
 	protected IContext getContext() {

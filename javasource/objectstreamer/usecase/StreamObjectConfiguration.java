@@ -12,7 +12,9 @@ public interface StreamObjectConfiguration {
 	
 	public JsonMapper getJsonMapper();
 	
-	public void setXPathQuery(XPathBasicQuery xPathQuery);
+	public void setXPathQuery(String entityForExport, String constraint);
+	
+	public XPathBasicQuery getXPathQuery();
 
 	void setFile(IMendixObject file);
 

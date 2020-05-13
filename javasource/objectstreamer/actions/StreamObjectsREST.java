@@ -43,17 +43,16 @@ public class StreamObjectsREST extends CustomJavaAction<java.lang.Void>
 	{
 		// BEGIN USER CODE
 		IContext context = this.getContext();
-		String notNullableConstaint = Optional.ofNullable(this.constraint).orElse("");
-		
-		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s%s", this.entityforExport, notNullableConstaint))
-				.setAmount(batchSize.intValue())
-				.addSort(sortAttribute, true);
+		String constraint = Optional.ofNullable(this.constraint).orElse("");
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
 		StreamObjectConfiguration streamObjectConfiguration = factory.create("Http");
 		streamObjectConfiguration.setContext(context);
-		streamObjectConfiguration.setXPathQuery(xPathQuery);
+		streamObjectConfiguration.setXPathQuery(entityforExport, constraint);
+		streamObjectConfiguration.getXPathQuery()
+			.setAmount(batchSize.intValue())
+			.addSort(sortAttribute, true);
 		
 		JsonMapperImpl jsonMapper = (JsonMapperImpl) streamObjectConfiguration.getJsonMapper();
 		jsonMapper.setExportMapping(this.exportMapping);
