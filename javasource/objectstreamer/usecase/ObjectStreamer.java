@@ -9,13 +9,16 @@ import java.util.NoSuchElementException;
 
 import com.google.gson.stream.JsonWriter;
 import com.mendix.core.Core;
-import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class ObjectStreamer {
 
 	private StreamObjectConfigurationImpl streamObjectConfiguration;
+	private int offset = 0;
+	private int maxObjectsPerBatch = 0;
+	private int actualObjectsPerBatch = 0;
+	private IContext context;
 
 	public ObjectStreamer(StreamObjectConfiguration streamObjectConfiguration) {
 		this.streamObjectConfiguration = (StreamObjectConfigurationImpl) streamObjectConfiguration;
@@ -29,35 +32,26 @@ public class ObjectStreamer {
 
 			writer.beginArray();
 
-			int offset = 0;
-			int batchCount = 0;
-			int batchSize = 0;
-			
-			XPathBasicQuery xPathQuery = this.streamObjectConfiguration.getXpathQuery();
-
-			while (batchSize == batchCount) {
-				IContext varyingContext = this.streamObjectConfiguration.getContext().createClone();
-				xPathQuery.setOffset(offset);
-
-				List<IMendixObject> objects = xPathQuery.execute(varyingContext);
-
-				batchCount = objects.size();
+			while (nextBatchExists()) {
+				createEmptyContext();
+				List<IMendixObject> objects = retrieveObjects();
+				actualObjectsPerBatch = objects.size();
 				
-				if(offset == 0) {
-					batchSize = objects.size();
+				if (noObjectsToReturn()) {
+					break;
 				}
 				
-				offset += batchSize;
-
-				String output = this.streamObjectConfiguration.getJsonMapper().map(varyingContext, objects);
-
-				int outputLength = output.length();
-
-				String outputWithoutBrackets = output.substring(1, outputLength - 1);
-
-				if (batchCount > 0) {
-					writer.jsonValue(outputWithoutBrackets);
+				if(isFirstIteration()) {
+					maxObjectsPerBatch = actualObjectsPerBatch;
 				}
+				
+				String jsonWithoutArrayBrackets = stripBrackets(this.streamObjectConfiguration.getJsonMapper().map(context, objects));
+
+				if (anyObjectsToReturn()) {
+					writer.jsonValue(jsonWithoutArrayBrackets);
+				}
+				
+				increaseOffset();
 			}
 
 			writer.endArray();
@@ -69,6 +63,41 @@ public class ObjectStreamer {
 			Core.getLogger("Streamer").error(e.getMessage(), e);
 			;
 		}
+	}
+	
+	private boolean nextBatchExists() {
+		return maxObjectsPerBatch == actualObjectsPerBatch;
+	}
+	
+	private void createEmptyContext() {
+		this.context = this.streamObjectConfiguration.getContext().createClone();
+	}
+	
+	private List<IMendixObject> retrieveObjects() {
+		return this.streamObjectConfiguration.getXpathQuery().execute(context);
+	}
+	
+	private boolean noObjectsToReturn() {
+		return actualObjectsPerBatch == 0;
+	}
+	
+	private boolean isFirstIteration() {
+		return this.offset == 0;
+	}
+	
+	private String stripBrackets(String json) {
+		int length = json.length();
+		String jsonWithoutArrayBrackets = json.substring(1, length - 1);
+		return jsonWithoutArrayBrackets;
+	}
+	
+	private void increaseOffset() {
+		offset += actualObjectsPerBatch;
+		this.streamObjectConfiguration.getXpathQuery().setOffset(offset);
+	}
+	
+	private boolean anyObjectsToReturn() {
+		return actualObjectsPerBatch > 0;
 	}
 
 }
