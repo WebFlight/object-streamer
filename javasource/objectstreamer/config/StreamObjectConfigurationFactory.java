@@ -2,6 +2,7 @@ package objectstreamer.config;
 
 import java.util.NoSuchElementException;
 
+import objectstreamer.adapter.MendixFileStreamWriter;
 import objectstreamer.adapter.MendixXPathGenerator;
 import objectstreamer.domain.port.XPathGenerator;
 import objectstreamer.usecase.JsonMapperImpl;
@@ -16,7 +17,7 @@ public class StreamObjectConfigurationFactory {
 
 	public StreamObjectConfiguration create(String streamType) {
 		if("File".equalsIgnoreCase(streamType)) {
-			return new StreamObjectConfigurationFile(this.jsonMapper, this.xPathGenerator);
+			return new StreamObjectConfigurationFile(this.jsonMapper, this.xPathGenerator, new MendixFileStreamWriter());
 		}
 		
 		if("Http".equalsIgnoreCase(streamType)) {

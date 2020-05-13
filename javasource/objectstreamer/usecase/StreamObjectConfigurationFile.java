@@ -8,18 +8,20 @@ import java.io.PipedOutputStream;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+import objectstreamer.domain.port.FileStreamWriter;
 import objectstreamer.domain.port.JsonMapper;
 import objectstreamer.domain.port.XPathGenerator;
 
 
 public class StreamObjectConfigurationFile extends StreamObjectConfigurationImpl{
-	
-	public StreamObjectConfigurationFile(JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
-		super(jsonMapper, xPathGenerator);
-	}
 
+	private FileStreamWriter fileStreamWriter;
 	private IMendixObject file;
 	
+	public StreamObjectConfigurationFile(JsonMapper jsonMapper, XPathGenerator xPathGenerator, FileStreamWriter fileStreamWriter) {
+		super(jsonMapper, xPathGenerator);
+		this.fileStreamWriter = fileStreamWriter;
+	}	
 	
 	
 	@Override
@@ -30,8 +32,10 @@ public class StreamObjectConfigurationFile extends StreamObjectConfigurationImpl
 	protected OutputStream getOutputStream() throws IOException {
 		PipedInputStream pipedInputStream = new PipedInputStream();
 		PipedOutputStream pipedOutputStream = new PipedOutputStream(pipedInputStream);
-		FileStreamWriter fileStreamWriter = new FileStreamWriter(this.getContext(), file, pipedInputStream);
-		Core.executeVoid(fileStreamWriter);
+		FileStreamWriterAction fileStreamWriterAction = new FileStreamWriterAction(getContext(), this.fileStreamWriter);
+		fileStreamWriterAction.setInputStream(pipedInputStream);
+		fileStreamWriterAction.setObject(file);
+		Core.executeVoid(fileStreamWriterAction);
 		return pipedOutputStream;
 	}
 	
