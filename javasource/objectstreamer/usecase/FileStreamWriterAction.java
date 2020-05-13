@@ -2,7 +2,6 @@ package objectstreamer.usecase;
 
 import java.io.InputStream;
 
-import com.mendix.core.Core;
 import com.mendix.core.actionmanagement.CoreAction;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
