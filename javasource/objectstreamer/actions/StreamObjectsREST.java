@@ -10,8 +10,6 @@
 package objectstreamer.actions;
 
 import java.util.Optional;
-import com.mendix.core.Core;
-import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 

@@ -63,10 +63,10 @@ public class ObjectStreamer {
 			writer.endArray();
 
 		} catch (IOException e) {
-			Core.getLogger("Streamer").info(e.getMessage());
+			Core.getLogger("Streamer").error(e.getMessage());
 			;
 		} catch (NoSuchElementException e) {
-			Core.getLogger("Streamer").info(e.getMessage());
+			Core.getLogger("Streamer").error(e.getMessage());
 			;
 		}
 	}
