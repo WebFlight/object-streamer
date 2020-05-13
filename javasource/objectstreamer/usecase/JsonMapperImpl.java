@@ -9,18 +9,19 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.port.JsonMapper;
+import objectstreamer.domain.port.ObjectListToJsonExporter;
 
 public class JsonMapperImpl implements JsonMapper{
 	
 	private String exportMapping;
+	private ObjectListToJsonExporter exporter;
 	
-	public JsonMapperImpl() {
-		
+	public JsonMapperImpl(ObjectListToJsonExporter exporter) {
+		this.exporter = exporter;
 	}
 	
 	public void setExportMapping(String exportMapping) {
@@ -29,7 +30,7 @@ public class JsonMapperImpl implements JsonMapper{
 
 	@Override
 	public String map(IContext context, List<IMendixObject> objects) throws IOException{
-		InputStream inputStream = Core.integration().exportToStream(context, this.exportMapping, objects, false);
+		InputStream inputStream = exporter.export(context, this.exportMapping, objects);
 		String result = convert(inputStream);
 		return result;
 	}

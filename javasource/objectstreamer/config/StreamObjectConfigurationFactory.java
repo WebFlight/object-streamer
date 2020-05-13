@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import objectstreamer.adapter.MendixActionExecutor;
 import objectstreamer.adapter.MendixFileStreamWriter;
+import objectstreamer.adapter.MendixObjectListToJsonExporter;
 import objectstreamer.adapter.MendixXPathGenerator;
 import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
@@ -16,7 +17,7 @@ import objectstreamer.usecase.StreamObjectConfigurationHttp;
 
 public class StreamObjectConfigurationFactory {
 	
-	private final JsonMapper jsonMapper = new JsonMapperImpl();
+	private final JsonMapper jsonMapper = new JsonMapperImpl(new MendixObjectListToJsonExporter());
 	private final XPathGenerator xPathGenerator = new MendixXPathGenerator();
 	private final FileStreamWriter fileStreamWriter = new MendixFileStreamWriter();
 	private final ActionExecutor<Void> actionExecutor = new MendixActionExecutor();
