@@ -1,12 +1,7 @@
 package objectstreamer.usecase;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.mendix.systemwideinterfaces.core.IContext;
@@ -19,9 +14,11 @@ public class JsonMapperImpl implements JsonMapper{
 	
 	private String exportMapping;
 	private ObjectListToJsonExporter exporter;
+	private InputStreamToStringConverter converter;
 	
-	public JsonMapperImpl(ObjectListToJsonExporter exporter) {
+	public JsonMapperImpl(ObjectListToJsonExporter exporter, InputStreamToStringConverter converter) {
 		this.exporter = exporter;
+		this.converter = converter;
 	}
 	
 	public void setExportMapping(String exportMapping) {
@@ -31,23 +28,8 @@ public class JsonMapperImpl implements JsonMapper{
 	@Override
 	public String map(IContext context, List<IMendixObject> objects) throws IOException{
 		InputStream inputStream = exporter.export(context, this.exportMapping, objects);
-		String result = convert(inputStream);
+		String result = converter.convert(inputStream);
 		return result;
-	}
-	
-	private String convert(InputStream inputStream) throws IOException {
-		StringBuilder textBuilder = new StringBuilder();
-	    try (
-	    		InputStream closableInputStream = inputStream;
-	    		InputStreamReader inputStreamReader = new InputStreamReader(closableInputStream, Charset.forName(StandardCharsets.UTF_8.name()));
-	    		Reader reader = new BufferedReader(inputStreamReader) ) {
-	        int c = 0;
-	        while ((c = reader.read()) != -1) {
-	            textBuilder.append((char) c);
-	        }
-	    }
-	    
-	    return textBuilder.toString();
 	}
 
 }

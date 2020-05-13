@@ -10,6 +10,7 @@ import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
 import objectstreamer.domain.port.JsonMapper;
 import objectstreamer.domain.port.XPathGenerator;
+import objectstreamer.usecase.InputStreamToStringConverter;
 import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.StreamObjectConfiguration;
 import objectstreamer.usecase.StreamObjectConfigurationFile;
@@ -17,7 +18,7 @@ import objectstreamer.usecase.StreamObjectConfigurationHttp;
 
 public class StreamObjectConfigurationFactory {
 	
-	private final JsonMapper jsonMapper = new JsonMapperImpl(new MendixObjectListToJsonExporter());
+	private final JsonMapper jsonMapper = new JsonMapperImpl(new MendixObjectListToJsonExporter(), new InputStreamToStringConverter());
 	private final XPathGenerator xPathGenerator = new MendixXPathGenerator();
 	private final FileStreamWriter fileStreamWriter = new MendixFileStreamWriter();
 	private final ActionExecutor<Void> actionExecutor = new MendixActionExecutor();
