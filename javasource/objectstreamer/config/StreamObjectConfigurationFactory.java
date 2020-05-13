@@ -16,11 +16,11 @@ public class StreamObjectConfigurationFactory {
 
 	public StreamObjectConfiguration create(String streamType) {
 		if("File".equalsIgnoreCase(streamType)) {
-			return new StreamObjectConfigurationFile(this.jsonMapper);
+			return new StreamObjectConfigurationFile(this.jsonMapper, this.xPathGenerator);
 		}
 		
 		if("Http".equalsIgnoreCase(streamType)) {
-			return new StreamObjectConfigurationHttp(this.jsonMapper);
+			return new StreamObjectConfigurationHttp(this.jsonMapper, this.xPathGenerator);
 		}
 		
 		throw new NoSuchElementException(String.format("Stream type %s not found.", streamType));

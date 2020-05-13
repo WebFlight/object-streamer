@@ -9,12 +9,13 @@ import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.port.JsonMapper;
+import objectstreamer.domain.port.XPathGenerator;
 
 
 public class StreamObjectConfigurationFile extends StreamObjectConfigurationImpl{
 	
-	public StreamObjectConfigurationFile(JsonMapper jsonMapper) {
-		super(jsonMapper);
+	public StreamObjectConfigurationFile(JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
+		super(jsonMapper, xPathGenerator);
 	}
 
 	private IMendixObject file;

@@ -11,20 +11,24 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.port.JsonMapper;
+import objectstreamer.domain.port.XPathGenerator;
 
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 	
 	private IContext context;
 	private XPathBasicQuery xPathQuery;
 	private JsonMapper jsonMapper;
+	private XPathGenerator xPathGenerator;
 	
-	protected StreamObjectConfigurationImpl (JsonMapper jsonMapper) {
+	protected StreamObjectConfigurationImpl (JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
 		this.jsonMapper = jsonMapper;
+		this.xPathGenerator = xPathGenerator;
 	}
 	
 	public void setContext(IContext context) {
 		this.context = context;
 	}
+	
 	
 	public void setFile(IMendixObject file) {
 		

@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import objectstreamer.domain.port.JsonMapper;
+import objectstreamer.domain.port.XPathGenerator;
 
 public class StreamObjectConfigurationHttp extends StreamObjectConfigurationImpl{
 	
 	
-	public StreamObjectConfigurationHttp(JsonMapper jsonMapper) {
-		super(jsonMapper);
+	public StreamObjectConfigurationHttp(JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
+		super(jsonMapper, xPathGenerator);
 	}
 
 	
