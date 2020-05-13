@@ -10,34 +10,36 @@ import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+import objectstreamer.domain.port.JsonMapper;
+import objectstreamer.domain.port.XPathGenerator;
+
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 	
 	private IContext context;
 	private XPathBasicQuery xPathQuery;
 	private JsonMapper jsonMapper;
+	private XPathGenerator xPathGenerator;
 	
-	protected StreamObjectConfigurationImpl () {
-		
+	protected StreamObjectConfigurationImpl (JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
+		this.jsonMapper = jsonMapper;
+		this.xPathGenerator = xPathGenerator;
 	}
 	
 	public void setContext(IContext context) {
 		this.context = context;
 	}
 	
-	public void setJsonMapper(JsonMapper jsonMapper) {
-		this.jsonMapper = jsonMapper;
-	}
-	
-	public JsonMapper getJsonMapper() {
-		return this.jsonMapper;
-	}
 	
 	public void setFile(IMendixObject file) {
 		
 	}
 	
-	public void setXPathQuery(XPathBasicQuery xPathQuery) {
-		this.xPathQuery = xPathQuery;
+	public XPathBasicQuery getXPathQuery() {
+		return this.xPathQuery;
+	}
+	
+	public void setXPathQuery(String entityForExport, String constraint) {
+		this.xPathQuery = xPathGenerator.generate(entityForExport, constraint); 
 	}
 	
 	protected IContext getContext() {
@@ -46,6 +48,10 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	
 	protected XPathBasicQuery getXpathQuery() {
 		return this.xPathQuery;
+	}
+	
+	public JsonMapper getJsonMapper() {
+		return this.jsonMapper;
 	}
 	
 	protected OutputStreamWriter getOutputStreamWriter(OutputStream outputStream) {

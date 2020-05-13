@@ -10,11 +10,9 @@
 package objectstreamer.actions;
 
 import java.util.Optional;
-import com.mendix.core.Core;
-import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
-import objectstreamer.usecase.StreamObjectConfigurationFactory;
+import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfiguration;
@@ -49,23 +47,21 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 		// BEGIN USER CODE
 		file.getClass();
 		IContext context = this.getContext();
-		String notNullableConstaint = Optional.ofNullable(this.constraint).orElse("");
-		
-		XPathBasicQuery xPathQuery = Core.createXPathQuery(String.format("//%s%s", this.entityforExport, notNullableConstaint))
-				.setAmount(batchSize.intValue())
-				.addSort(sortAttribute, true);
+		String constraint = Optional.ofNullable(this.constraint).orElse("");
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
 		StreamObjectConfiguration streamObjectConfiguration = factory.create("File");
 		streamObjectConfiguration.setContext(context);
 		streamObjectConfiguration.setFile(__file);
-		streamObjectConfiguration.setXPathQuery(xPathQuery);
+		streamObjectConfiguration.setXPathQuery(entityforExport, constraint);
+		streamObjectConfiguration.getXPathQuery()
+			.setAmount(batchSize.intValue())
+			.addSort(sortAttribute, true);
 		
-		JsonMapperImpl jsonMapper = new JsonMapperImpl();
+		
+		JsonMapperImpl jsonMapper = (JsonMapperImpl) streamObjectConfiguration.getJsonMapper();
 		jsonMapper.setExportMapping(this.exportMapping);
-		
-		streamObjectConfiguration.setJsonMapper(jsonMapper);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
