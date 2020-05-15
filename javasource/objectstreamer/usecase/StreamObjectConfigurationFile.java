@@ -9,8 +9,6 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
-import objectstreamer.domain.port.JsonMapper;
-import objectstreamer.domain.port.XPathGenerator;
 
 
 public class StreamObjectConfigurationFile extends StreamObjectConfigurationImpl{
@@ -19,8 +17,8 @@ public class StreamObjectConfigurationFile extends StreamObjectConfigurationImpl
 	private IMendixObject file;
 	private ActionExecutor<Void> actionExecutor;
 	
-	public StreamObjectConfigurationFile(JsonMapper jsonMapper, XPathGenerator xPathGenerator, FileStreamWriter fileStreamWriter, ActionExecutor<Void> actionExecutor) {
-		super(jsonMapper, xPathGenerator);
+	public StreamObjectConfigurationFile(FileStreamWriter fileStreamWriter, ActionExecutor<Void> actionExecutor) {
+		super();
 		this.fileStreamWriter = fileStreamWriter;
 		this.actionExecutor = actionExecutor;
 	}	

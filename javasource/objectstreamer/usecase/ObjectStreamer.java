@@ -4,20 +4,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import com.google.gson.stream.JsonWriter;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class ObjectStreamer {
 
 	private StreamObjectConfigurationImpl streamObjectConfiguration;
 	private int offset = 0;
-	private int maxObjectsPerBatch = 0;
-	private int actualObjectsPerBatch = 0;
 	private IContext context;
 
 	public ObjectStreamer(StreamObjectConfiguration streamObjectConfiguration) {
@@ -32,24 +28,20 @@ public class ObjectStreamer {
 
 			writer.beginArray();
 
-			while (nextBatchExists()) {
+			while (true) {
 				createEmptyContext();
-				List<IMendixObject> objects = retrieveObjects();
-				actualObjectsPerBatch = objects.size();
+				String batch = Core.microflowCall(this.streamObjectConfiguration.getMicroflow())
+						.withParam("Offset", this.offset)
+						.withParam("BatchSize", this.streamObjectConfiguration.getBatchSize())
+						.execute(context);
 				
-				if (noObjectsToReturn()) {
+				if (batch.isEmpty() || batch.equals("") || batch.equals("[]")) {
 					break;
 				}
 				
-				if(isFirstIteration()) {
-					maxObjectsPerBatch = actualObjectsPerBatch;
-				}
-				
-				String jsonWithoutArrayBrackets = stripBrackets(this.streamObjectConfiguration.getJsonMapper().map(context, objects));
+				String jsonWithoutArrayBrackets = stripBrackets(batch);
 
-				if (anyObjectsToReturn()) {
-					writer.jsonValue(jsonWithoutArrayBrackets);
-				}
+				writer.jsonValue(jsonWithoutArrayBrackets);
 				
 				increaseOffset();
 			}
@@ -65,24 +57,8 @@ public class ObjectStreamer {
 		}
 	}
 	
-	private boolean nextBatchExists() {
-		return maxObjectsPerBatch == actualObjectsPerBatch;
-	}
-	
 	private void createEmptyContext() {
 		this.context = this.streamObjectConfiguration.getContext().createClone();
-	}
-	
-	private List<IMendixObject> retrieveObjects() {
-		return this.streamObjectConfiguration.getXpathQuery().execute(context);
-	}
-	
-	private boolean noObjectsToReturn() {
-		return actualObjectsPerBatch == 0;
-	}
-	
-	private boolean isFirstIteration() {
-		return this.offset == 0;
 	}
 	
 	private String stripBrackets(String json) {
@@ -92,12 +68,7 @@ public class ObjectStreamer {
 	}
 	
 	private void increaseOffset() {
-		offset += actualObjectsPerBatch;
-		this.streamObjectConfiguration.getXpathQuery().setOffset(offset);
-	}
-	
-	private boolean anyObjectsToReturn() {
-		return actualObjectsPerBatch > 0;
+		offset += streamObjectConfiguration.getBatchSize();
 	}
 
 }

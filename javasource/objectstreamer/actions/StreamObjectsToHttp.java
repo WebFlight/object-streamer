@@ -16,35 +16,39 @@ import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfiguration;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-public class StreamObjectsToFileFromMF extends CustomJavaAction<java.lang.Void>
+public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 {
 	private java.lang.Long batchSize;
-	private IMendixObject __file;
-	private system.proxies.FileDocument file;
 	private java.lang.String microflow;
+	private java.util.List<IMendixObject> __headers;
+	private java.util.List<system.proxies.HttpHeader> headers;
 
-	public StreamObjectsToFileFromMF(IContext context, java.lang.Long batchSize, IMendixObject file, java.lang.String microflow)
+	public StreamObjectsToHttp(IContext context, java.lang.Long batchSize, java.lang.String microflow, java.util.List<IMendixObject> headers)
 	{
 		super(context);
 		this.batchSize = batchSize;
-		this.__file = file;
 		this.microflow = microflow;
+		this.__headers = headers;
 	}
 
 	@java.lang.Override
 	public java.lang.Void executeAction() throws Exception
 	{
-		this.file = __file == null ? null : system.proxies.FileDocument.initialize(getContext(), __file);
+		this.headers = new java.util.ArrayList<system.proxies.HttpHeader>();
+		if (__headers != null)
+			for (IMendixObject __headersElement : __headers)
+				this.headers.add(system.proxies.HttpHeader.initialize(getContext(), __headersElement));
 
 		// BEGIN USER CODE
-		file.getClass();
 		IContext context = this.getContext();
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
-		StreamObjectConfiguration streamObjectConfiguration = factory.create("File");
+		StreamObjectConfiguration streamObjectConfiguration = factory.create("Http");
 		streamObjectConfiguration.setContext(context);
-		streamObjectConfiguration.setFile(__file);		
+		streamObjectConfiguration.setMicroflow(microflow);
+		streamObjectConfiguration.setBatchSize(batchSize.intValue());
+		streamObjectConfiguration.setHeaders(__headers);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
@@ -59,7 +63,7 @@ public class StreamObjectsToFileFromMF extends CustomJavaAction<java.lang.Void>
 	@java.lang.Override
 	public java.lang.String toString()
 	{
-		return "StreamObjectsToFileFromMF";
+		return "StreamObjectsToHttp";
 	}
 
 	// BEGIN EXTRA CODE
