@@ -9,10 +9,12 @@
 		<mendixInstallDir>C:\Program Files\Mendix</mendixInstallDir>
 		<mendixVersion>8.9.0.5487</mendixVersion>
 		<moduleForExport>ObjectStreamer</moduleForExport>
+		<junit-platform.version>5.3.1</junit-platform.version>
 	</properties>
 	<build>
 		<outputDirectory>deployment/run/bin</outputDirectory>
 		<sourceDirectory>javasource</sourceDirectory>
+		<testSourceDirectory>javasource/test</testSourceDirectory>
 		<resources>
 			<resource>
 				<directory>javasource</directory>
@@ -107,6 +109,16 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.22.0</version>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -186,5 +198,15 @@
 			<scope>system</scope>
 			<systemPath>${mendixInstallDir}\${mendixVersion}\runtime\bundles\com.mendix.logging-api.jar</systemPath>
 		</dependency>
+		 <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit-platform.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit-platform.version}</version>
+        </dependency>
 	</dependencies>
 </project>
