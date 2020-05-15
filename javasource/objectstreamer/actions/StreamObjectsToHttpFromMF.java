@@ -9,30 +9,22 @@
 
 package objectstreamer.actions;
 
-import java.util.Optional;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
-import objectstreamer.usecase.JsonMapperImpl;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfiguration;
 
-public class StreamObjectsToHttpFromDB extends CustomJavaAction<java.lang.Void>
+public class StreamObjectsToHttpFromMF extends CustomJavaAction<java.lang.Void>
 {
-	private java.lang.String entityforExport;
-	private java.lang.String constraint;
-	private java.lang.String sortAttribute;
 	private java.lang.Long batchSize;
-	private java.lang.String exportMapping;
+	private java.lang.String microflow;
 
-	public StreamObjectsToHttpFromDB(IContext context, java.lang.String entityforExport, java.lang.String constraint, java.lang.String sortAttribute, java.lang.Long batchSize, java.lang.String exportMapping)
+	public StreamObjectsToHttpFromMF(IContext context, java.lang.Long batchSize, java.lang.String microflow)
 	{
 		super(context);
-		this.entityforExport = entityforExport;
-		this.constraint = constraint;
-		this.sortAttribute = sortAttribute;
 		this.batchSize = batchSize;
-		this.exportMapping = exportMapping;
+		this.microflow = microflow;
 	}
 
 	@java.lang.Override
@@ -40,19 +32,12 @@ public class StreamObjectsToHttpFromDB extends CustomJavaAction<java.lang.Void>
 	{
 		// BEGIN USER CODE
 		IContext context = this.getContext();
-		String constraint = Optional.ofNullable(this.constraint).orElse("");
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
 		StreamObjectConfiguration streamObjectConfiguration = factory.create("Http");
 		streamObjectConfiguration.setContext(context);
-		streamObjectConfiguration.setXPathQuery(entityforExport, constraint);
-		streamObjectConfiguration.getXPathQuery()
-			.setAmount(batchSize.intValue())
-			.addSort(sortAttribute, true);
 		
-		JsonMapperImpl jsonMapper = (JsonMapperImpl) streamObjectConfiguration.getJsonMapper();
-		jsonMapper.setExportMapping(this.exportMapping);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
@@ -67,7 +52,7 @@ public class StreamObjectsToHttpFromDB extends CustomJavaAction<java.lang.Void>
 	@java.lang.Override
 	public java.lang.String toString()
 	{
-		return "StreamObjectsToHttpFromDB";
+		return "StreamObjectsToHttpFromMF";
 	}
 
 	// BEGIN EXTRA CODE

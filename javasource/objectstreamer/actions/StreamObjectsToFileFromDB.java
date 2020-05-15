@@ -18,7 +18,7 @@ import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfiguration;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
+public class StreamObjectsToFileFromDB extends CustomJavaAction<java.lang.Void>
 {
 	private java.lang.String entityforExport;
 	private java.lang.String constraint;
@@ -28,7 +28,7 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 	private IMendixObject __file;
 	private system.proxies.FileDocument file;
 
-	public StreamObjectsFile(IContext context, java.lang.String entityforExport, java.lang.String constraint, java.lang.String sortAttribute, java.lang.Long batchSize, java.lang.String exportMapping, IMendixObject file)
+	public StreamObjectsToFileFromDB(IContext context, java.lang.String entityforExport, java.lang.String constraint, java.lang.String sortAttribute, java.lang.Long batchSize, java.lang.String exportMapping, IMendixObject file)
 	{
 		super(context);
 		this.entityforExport = entityforExport;
@@ -76,7 +76,7 @@ public class StreamObjectsFile extends CustomJavaAction<java.lang.Void>
 	@java.lang.Override
 	public java.lang.String toString()
 	{
-		return "StreamObjectsFile";
+		return "StreamObjectsToFileFromDB";
 	}
 
 	// BEGIN EXTRA CODE

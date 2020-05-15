@@ -19,6 +19,8 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	private XPathBasicQuery xPathQuery;
 	private JsonMapper jsonMapper;
 	private XPathGenerator xPathGenerator;
+	private String microflow;
+	private int batchSize;
 	
 	protected StreamObjectConfigurationImpl (JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
 		this.jsonMapper = jsonMapper;
@@ -67,5 +69,23 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	}
 	
 	abstract protected OutputStream getOutputStream() throws IOException;
+
+	protected String getMicroflow() {
+		return microflow;
+	}
+
+	public void setMicroflow(String microflow) {
+		this.microflow = microflow;
+	}
+
+	protected int getBatchSize() {
+		return batchSize;
+	}
+
+	public void setBatchSize(int batchSize) {
+		this.batchSize = batchSize;
+	}
+	
+	
 
 }

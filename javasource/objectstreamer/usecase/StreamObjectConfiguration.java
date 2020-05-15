@@ -17,5 +17,9 @@ public interface StreamObjectConfiguration {
 	public XPathBasicQuery getXPathQuery();
 
 	void setFile(IMendixObject file);
+	
+	public void setMicroflow(String microflow);
+	
+	public void setBatchSize(int batchSize);
 
 }
