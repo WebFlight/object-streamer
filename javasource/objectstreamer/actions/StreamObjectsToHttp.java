@@ -22,13 +22,16 @@ public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 	private java.lang.String microflow;
 	private java.util.List<IMendixObject> __headers;
 	private java.util.List<system.proxies.HttpHeader> headers;
+	private java.util.List<IMendixObject> __inputParameters;
+	private java.util.List<objectstreamer.proxies.InputParameter> inputParameters;
 
-	public StreamObjectsToHttp(IContext context, java.lang.Long batchSize, java.lang.String microflow, java.util.List<IMendixObject> headers)
+	public StreamObjectsToHttp(IContext context, java.lang.Long batchSize, java.lang.String microflow, java.util.List<IMendixObject> headers, java.util.List<IMendixObject> inputParameters)
 	{
 		super(context);
 		this.batchSize = batchSize;
 		this.microflow = microflow;
 		this.__headers = headers;
+		this.__inputParameters = inputParameters;
 	}
 
 	@java.lang.Override
@@ -38,6 +41,11 @@ public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 		if (__headers != null)
 			for (IMendixObject __headersElement : __headers)
 				this.headers.add(system.proxies.HttpHeader.initialize(getContext(), __headersElement));
+
+		this.inputParameters = new java.util.ArrayList<objectstreamer.proxies.InputParameter>();
+		if (__inputParameters != null)
+			for (IMendixObject __inputParametersElement : __inputParameters)
+				this.inputParameters.add(objectstreamer.proxies.InputParameter.initialize(getContext(), __inputParametersElement));
 
 		// BEGIN USER CODE
 		IContext context = this.getContext();
@@ -49,6 +57,7 @@ public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setMicroflow(microflow);
 		streamObjectConfiguration.setBatchSize(batchSize.intValue());
 		streamObjectConfiguration.setHeaders(__headers);
+		streamObjectConfiguration.setInputParameters(__inputParameters);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();

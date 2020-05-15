@@ -18,6 +18,8 @@ public interface StreamObjectConfiguration {
 	
 	public void setMicroflow(String microflow);
 	
+	public void setInputParameters(List<IMendixObject> inputParameters);
+	
 	public void setBatchSize(int batchSize);
 
 }

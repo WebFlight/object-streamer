@@ -22,19 +22,27 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 	private IMendixObject __file;
 	private system.proxies.FileDocument file;
 	private java.lang.String microflow;
+	private java.util.List<IMendixObject> __inputParameters;
+	private java.util.List<objectstreamer.proxies.InputParameter> inputParameters;
 
-	public StreamObjectsToFile(IContext context, java.lang.Long batchSize, IMendixObject file, java.lang.String microflow)
+	public StreamObjectsToFile(IContext context, java.lang.Long batchSize, IMendixObject file, java.lang.String microflow, java.util.List<IMendixObject> inputParameters)
 	{
 		super(context);
 		this.batchSize = batchSize;
 		this.__file = file;
 		this.microflow = microflow;
+		this.__inputParameters = inputParameters;
 	}
 
 	@java.lang.Override
 	public java.lang.Void executeAction() throws Exception
 	{
 		this.file = __file == null ? null : system.proxies.FileDocument.initialize(getContext(), __file);
+
+		this.inputParameters = new java.util.ArrayList<objectstreamer.proxies.InputParameter>();
+		if (__inputParameters != null)
+			for (IMendixObject __inputParametersElement : __inputParameters)
+				this.inputParameters.add(objectstreamer.proxies.InputParameter.initialize(getContext(), __inputParametersElement));
 
 		// BEGIN USER CODE
 		file.getClass();

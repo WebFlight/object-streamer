@@ -4,11 +4,16 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import com.google.gson.stream.JsonWriter;
 import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class ObjectStreamer {
 
@@ -28,11 +33,18 @@ public class ObjectStreamer {
 
 			writer.beginArray();
 
+			Map<String, Object> parameterMap = new HashMap<>();
+			Optional<List<IMendixObject>> inputParameters = streamObjectConfiguration.getInputParameters();
+			
+			inputParameters.ifPresent(params -> params.forEach(param -> parameterMap.put(param.getValue(this.streamObjectConfiguration.getContext(), "Name"), param.getValue(this.streamObjectConfiguration.getContext(), "Value"))));
+			
 			while (true) {
 				createEmptyContext();
+				
 				String batch = Core.microflowCall(this.streamObjectConfiguration.getMicroflow())
 						.withParam("Offset", this.offset)
 						.withParam("BatchSize", this.streamObjectConfiguration.getBatchSize())
+						.withParams(parameterMap)
 						.execute(context);
 				
 				if (batch.isEmpty() || batch.equals("") || batch.equals("[]")) {
