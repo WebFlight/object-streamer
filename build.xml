@@ -9,7 +9,7 @@
 		<echo message="Create RequiredLib files for dependencies in ${basedir}\userlib." />
 		<foreach param="file" target="touchRequiredLibFile" inheritall="true">
 			<path>
-				<fileset dir="${basedir}\userlib" includes="*.jar" excludes="ant-*" />
+				<fileset dir="${basedir}\userlib" includes="*.jar" excludes="ant-* junit* apiguardian* opentest* byte-buddy* mockito* objenesis*" />
 			</path>
 		</foreach>
 	</target>
