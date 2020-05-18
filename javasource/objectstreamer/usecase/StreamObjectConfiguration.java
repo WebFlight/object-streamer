@@ -11,8 +11,6 @@ public interface StreamObjectConfiguration {
 	public void setContext(IContext context);
 	
 	public XPathBasicQuery getXPathQuery();
-
-	void setFile(IMendixObject file);
 	
 	void setHeaders(List<IMendixObject> headers);
 	

@@ -13,7 +13,8 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
-import objectstreamer.usecase.StreamObjectConfiguration;
+import objectstreamer.usecase.StreamObjectConfigurationFile;
+
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
@@ -58,12 +59,11 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
-		StreamObjectConfiguration streamObjectConfiguration = factory.create("File");
+		StreamObjectConfigurationFile streamObjectConfiguration = factory.createFileConfiguration();
 		streamObjectConfiguration.setContext(context);
 		streamObjectConfiguration.setFile(__file);
 		streamObjectConfiguration.setMicroflow(microflow);
 		streamObjectConfiguration.setBatchSize(batchSize.intValue());
-		streamObjectConfiguration.setHeaders(__headers);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();

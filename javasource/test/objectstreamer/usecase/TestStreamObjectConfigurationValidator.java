@@ -8,14 +8,14 @@ import org.mockito.Mock;
 
 import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
-import objectstreamer.usecase.StreamObjectConfigurationFile;
-import objectstreamer.usecase.StreamObjectConfigurationHttp;
+import objectstreamer.usecase.StreamObjectConfigurationFileImpl;
+import objectstreamer.usecase.StreamObjectConfigurationHttpImpl;
 import objectstreamer.usecase.StreamObjectConfigurationValidator;
 
 class TestStreamObjectConfigurationValidator {
 	
-	private static StreamObjectConfigurationFile streamObjectConfigurationFile;
-	private static StreamObjectConfigurationHttp streamObjectConfigurationHttp;
+	private static StreamObjectConfigurationFileImpl streamObjectConfigurationFile;
+	private static StreamObjectConfigurationHttpImpl streamObjectConfigurationHttp;
 	private static StreamObjectConfigurationValidator streamObjectConfigurationValidator = new StreamObjectConfigurationValidator();
 	
 	@Mock
@@ -25,8 +25,8 @@ class TestStreamObjectConfigurationValidator {
 	
 	@BeforeAll
 	static void setup() {
-		streamObjectConfigurationFile = new StreamObjectConfigurationFile(fileStreamWriter, actionExecutor);
-		streamObjectConfigurationHttp = new StreamObjectConfigurationHttp();
+		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
+		streamObjectConfigurationHttp = new StreamObjectConfigurationHttpImpl();
 	}
 
 	@Test

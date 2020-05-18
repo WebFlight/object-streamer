@@ -13,7 +13,8 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
-import objectstreamer.usecase.StreamObjectConfiguration;
+import objectstreamer.usecase.StreamObjectConfigurationHttp;
+
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
@@ -52,7 +53,7 @@ public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
-		StreamObjectConfiguration streamObjectConfiguration = factory.create("Http");
+		StreamObjectConfigurationHttp streamObjectConfiguration = factory.createHttpConfiguration();
 		streamObjectConfiguration.setContext(context);
 		streamObjectConfiguration.setMicroflow(microflow);
 		streamObjectConfiguration.setBatchSize(batchSize.intValue());
