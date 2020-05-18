@@ -22,15 +22,18 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 	private IMendixObject __file;
 	private system.proxies.FileDocument file;
 	private java.lang.String microflow;
+	private java.util.List<IMendixObject> __headers;
+	private java.util.List<system.proxies.HttpHeader> headers;
 	private java.util.List<IMendixObject> __inputParameters;
 	private java.util.List<objectstreamer.proxies.InputParameter> inputParameters;
 
-	public StreamObjectsToFile(IContext context, java.lang.Long batchSize, IMendixObject file, java.lang.String microflow, java.util.List<IMendixObject> inputParameters)
+	public StreamObjectsToFile(IContext context, java.lang.Long batchSize, IMendixObject file, java.lang.String microflow, java.util.List<IMendixObject> headers, java.util.List<IMendixObject> inputParameters)
 	{
 		super(context);
 		this.batchSize = batchSize;
 		this.__file = file;
 		this.microflow = microflow;
+		this.__headers = headers;
 		this.__inputParameters = inputParameters;
 	}
 
@@ -38,6 +41,11 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 	public java.lang.Void executeAction() throws Exception
 	{
 		this.file = __file == null ? null : system.proxies.FileDocument.initialize(getContext(), __file);
+
+		this.headers = new java.util.ArrayList<system.proxies.HttpHeader>();
+		if (__headers != null)
+			for (IMendixObject __headersElement : __headers)
+				this.headers.add(system.proxies.HttpHeader.initialize(getContext(), __headersElement));
 
 		this.inputParameters = new java.util.ArrayList<objectstreamer.proxies.InputParameter>();
 		if (__inputParameters != null)
@@ -55,6 +63,7 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setFile(__file);
 		streamObjectConfiguration.setMicroflow(microflow);
 		streamObjectConfiguration.setBatchSize(batchSize.intValue());
+		streamObjectConfiguration.setHeaders(__headers);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
