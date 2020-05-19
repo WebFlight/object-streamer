@@ -12,8 +12,6 @@ public interface StreamObjectConfiguration {
 	
 	public XPathBasicQuery getXPathQuery();
 	
-	void setHeaders(List<IMendixObject> headers);
-	
 	public void setMicroflow(String microflow);
 	
 	public void setInputParameters(List<IMendixObject> inputParameters);

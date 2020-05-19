@@ -14,7 +14,6 @@ import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfigurationFile;
-
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>

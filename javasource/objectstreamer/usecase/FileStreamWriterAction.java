@@ -19,11 +19,11 @@ public class FileStreamWriterAction extends CoreAction<Void> {
 		this.fileStreamWriter = fileStreamWriter;
 	}
 	
-	public void setObject(IMendixObject object) {
+	protected void setObject(IMendixObject object) {
 		this.object = object;
 	}
 	
-	public void setInputStream(InputStream inputStream) {
+	protected void setInputStream(InputStream inputStream) {
 		this.inputStream = inputStream;
 	}
 

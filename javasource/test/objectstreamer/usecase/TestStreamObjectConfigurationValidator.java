@@ -3,6 +3,7 @@ package test.objectstreamer.usecase;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
@@ -23,8 +24,8 @@ class TestStreamObjectConfigurationValidator {
 	@Mock
 	private static ActionExecutor<Void> actionExecutor;
 	
-	@BeforeAll
-	static void setup() {
+	@BeforeEach
+	static void setupEach() {
 		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
 		streamObjectConfigurationHttp = new StreamObjectConfigurationHttpImpl();
 	}

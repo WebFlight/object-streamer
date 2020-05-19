@@ -15,7 +15,7 @@ public class StreamObjectConfigurationFactory {
 	private final ActionExecutor<Void> actionExecutor = new MendixActionExecutor();
 	
 	public StreamObjectConfigurationFile createFileConfiguration() {
-			return new StreamObjectConfigurationFileImpl(this.fileStreamWriter, this.actionExecutor);
+		return new StreamObjectConfigurationFileImpl(this.fileStreamWriter, this.actionExecutor);
 	}
 	
 	public StreamObjectConfigurationHttp createHttpConfiguration() {
