@@ -47,7 +47,11 @@ public class ObjectStreamer {
 						.withParams(parameterMap)
 						.execute(context);
 				
-				if (batch.isEmpty() || batch.equals("") || batch.equals("[]")) {
+				if (batch == null) {
+					break;
+				}
+				
+				if (batch.isEmpty() || batch.equals("[]")) {
 					break;
 				}
 				
