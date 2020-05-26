@@ -10,7 +10,7 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectConfigurationHttpImpl extends StreamObjectConfigurationImpl implements StreamObjectConfigurationHttp {
 	
-	private Optional<List<IMendixObject>> headers;
+	private List<IMendixObject> headers;
 	
 	public StreamObjectConfigurationHttpImpl() {
 		super();
@@ -20,6 +20,7 @@ public class StreamObjectConfigurationHttpImpl extends StreamObjectConfiguration
 	protected OutputStream getOutputStream() throws IOException {
 		IMxRuntimeResponse response = this.getContext().getRuntimeResponse().get();
 		OutputStream outputStream = response.getOutputStream();
+		Optional<List<IMendixObject>> headers = getHeaders();
 		headers.ifPresent(headerList -> 
 			headerList.forEach(header -> 
 				response.addHeader(header.getValue(getContext(), "Key"), header.getValue(getContext(), "Value")
@@ -31,7 +32,11 @@ public class StreamObjectConfigurationHttpImpl extends StreamObjectConfiguration
 	
 	@Override
 	public void setHeaders(List<IMendixObject> headers) {
-		this.headers = Optional.ofNullable(headers);
+		this.headers = headers;
+	}
+	
+	private Optional<List<IMendixObject>> getHeaders() {
+		return Optional.ofNullable(this.headers);
 	}
 	
 }

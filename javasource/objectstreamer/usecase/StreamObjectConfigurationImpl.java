@@ -12,6 +12,9 @@ import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+import objectstreamer.domain.exception.ErrorMessage;
+import objectstreamer.domain.exception.InputEmptyException;
+
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 	
 	private IContext context;
@@ -26,15 +29,6 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	
 	public void setContext(IContext context) {
 		this.context = context;
-	}
-	
-	
-	public void setFile(IMendixObject file) {
-		
-	}
-	
-	public void setHeaders(List<IMendixObject> headers) {
-		
 	}
 	
 	public XPathBasicQuery getXPathQuery() {
@@ -68,7 +62,7 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	}
 
 	public void setMicroflow(String microflow) {
-		this.microflow = microflow;
+		this.microflow = Optional.ofNullable(microflow).orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_MICROFLOW));
 	}
 	
 	public Optional<List<IMendixObject>> getInputParameters() {
@@ -84,7 +78,7 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	}
 
 	public void setBatchSize(int batchSize) {
-		this.batchSize = batchSize;
+		this.batchSize = Optional.ofNullable(batchSize).orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_BATCHSIZE));;
 	}
 	
 	

@@ -36,7 +36,11 @@ public class ObjectStreamer {
 			Map<String, Object> parameterMap = new HashMap<>();
 			Optional<List<IMendixObject>> inputParameters = streamObjectConfiguration.getInputParameters();
 			
-			inputParameters.ifPresent(params -> params.forEach(param -> parameterMap.put(param.getValue(this.streamObjectConfiguration.getContext(), "Name"), param.getValue(this.streamObjectConfiguration.getContext(), "Value"))));
+			inputParameters.ifPresent(
+					params -> params.forEach(
+							param -> parameterMap.put(
+									param.getValue(this.streamObjectConfiguration.getContext(), "Name"), param.getValue(this.streamObjectConfiguration.getContext(), "Value")
+									)));
 			
 			while (true) {
 				createEmptyContext();
