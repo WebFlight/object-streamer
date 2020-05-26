@@ -55,6 +55,7 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setFile(__file);
 		streamObjectConfiguration.setMicroflow(microflow);
 		streamObjectConfiguration.setBatchSize(batchSize.intValue());
+		streamObjectConfiguration.setInputParameters(__inputParameters);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
