@@ -45,7 +45,6 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 				this.inputParameters.add(objectstreamer.proxies.InputParameter.initialize(getContext(), __inputParametersElement));
 
 		// BEGIN USER CODE
-		file.getClass();
 		IContext context = this.getContext();
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
@@ -54,11 +53,12 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setContext(context);
 		streamObjectConfiguration.setFile(__file);
 		streamObjectConfiguration.setMicroflow(microflow);
-		streamObjectConfiguration.setBatchSize(batchSize.intValue());
+		streamObjectConfiguration.setBatchSize(batchSize);
+		streamObjectConfiguration.setInputParameters(__inputParameters);
 		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
-		
+		file.getClass();
 		return null;
 		// END USER CODE
 	}
