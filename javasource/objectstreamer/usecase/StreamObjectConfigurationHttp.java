@@ -1,21 +1,11 @@
 package objectstreamer.usecase;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.util.List;
 
-import objectstreamer.domain.port.JsonMapper;
-import objectstreamer.domain.port.XPathGenerator;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-public class StreamObjectConfigurationHttp extends StreamObjectConfigurationImpl{
-	
-	
-	public StreamObjectConfigurationHttp(JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
-		super(jsonMapper, xPathGenerator);
-	}
+public interface StreamObjectConfigurationHttp extends StreamObjectConfiguration {
 
-	
-	protected OutputStream getOutputStream() throws IOException {
-		return this.getContext().getRuntimeResponse().get().getHttpServletResponse().getOutputStream();
-	}
+	void setHeaders(List<IMendixObject> headers);
 	
 }

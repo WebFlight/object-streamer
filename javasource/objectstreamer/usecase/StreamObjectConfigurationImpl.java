@@ -4,25 +4,24 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.List;
+import java.util.Optional;
 
 import com.google.gson.stream.JsonWriter;
 import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-import objectstreamer.domain.port.JsonMapper;
-import objectstreamer.domain.port.XPathGenerator;
-
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 	
 	private IContext context;
 	private XPathBasicQuery xPathQuery;
-	private JsonMapper jsonMapper;
-	private XPathGenerator xPathGenerator;
+	private String microflow;
+	private Optional<List<IMendixObject>> inputParameters;
+	private int batchSize;
 	
-	protected StreamObjectConfigurationImpl (JsonMapper jsonMapper, XPathGenerator xPathGenerator) {
-		this.jsonMapper = jsonMapper;
-		this.xPathGenerator = xPathGenerator;
+	protected StreamObjectConfigurationImpl () {
+
 	}
 	
 	public void setContext(IContext context) {
@@ -34,12 +33,12 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 		
 	}
 	
-	public XPathBasicQuery getXPathQuery() {
-		return this.xPathQuery;
+	public void setHeaders(List<IMendixObject> headers) {
+		
 	}
 	
-	public void setXPathQuery(String entityForExport, String constraint) {
-		this.xPathQuery = xPathGenerator.generate(entityForExport, constraint); 
+	public XPathBasicQuery getXPathQuery() {
+		return this.xPathQuery;
 	}
 	
 	protected IContext getContext() {
@@ -48,10 +47,6 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	
 	protected XPathBasicQuery getXpathQuery() {
 		return this.xPathQuery;
-	}
-	
-	public JsonMapper getJsonMapper() {
-		return this.jsonMapper;
 	}
 	
 	protected OutputStreamWriter getOutputStreamWriter(OutputStream outputStream) {
@@ -67,5 +62,31 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	}
 	
 	abstract protected OutputStream getOutputStream() throws IOException;
+
+	protected String getMicroflow() {
+		return microflow;
+	}
+
+	public void setMicroflow(String microflow) {
+		this.microflow = microflow;
+	}
+	
+	public Optional<List<IMendixObject>> getInputParameters() {
+		return this.inputParameters;
+	}
+	
+	public void setInputParameters(List<IMendixObject> inputParameters) {
+		this.inputParameters = Optional.ofNullable(inputParameters);
+	}
+
+	protected int getBatchSize() {
+		return batchSize;
+	}
+
+	public void setBatchSize(int batchSize) {
+		this.batchSize = batchSize;
+	}
+	
+	
 
 }
