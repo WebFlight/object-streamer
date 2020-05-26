@@ -7,6 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
+
 import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
 import objectstreamer.usecase.StreamObjectConfigurationFileImpl;
@@ -15,29 +18,40 @@ import objectstreamer.usecase.StreamObjectConfigurationValidator;
 
 class TestStreamObjectConfigurationValidator {
 	
-	private static StreamObjectConfigurationFileImpl streamObjectConfigurationFile;
-	private static StreamObjectConfigurationHttpImpl streamObjectConfigurationHttp;
-	private static StreamObjectConfigurationValidator streamObjectConfigurationValidator = new StreamObjectConfigurationValidator();
+	private StreamObjectConfigurationFileImpl streamObjectConfigurationFile;
+	private StreamObjectConfigurationHttpImpl streamObjectConfigurationHttp;
+	private StreamObjectConfigurationValidator streamObjectConfigurationValidator = new StreamObjectConfigurationValidator();
 	
 	@Mock
-	private static FileStreamWriter fileStreamWriter;
+	private FileStreamWriter fileStreamWriter;
 	@Mock
-	private static ActionExecutor<Void> actionExecutor;
+	private ActionExecutor<Void> actionExecutor;
+	@Mock
+	private IContext context;
+	@Mock
+	private IMendixObject file;
 	
-//	@BeforeEach
-//	static void setupEach() {
-//		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
-//		streamObjectConfigurationHttp = new StreamObjectConfigurationHttpImpl();
-//	}
+	@BeforeEach
+	void setupEach() {
+		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
+		streamObjectConfigurationHttp = new StreamObjectConfigurationHttpImpl();
+	}
 
 	@Test
-	void validateFileTrue() {
-//		streamObjectConfigurationValidator.validate(streamObjectConfigurationFile);
+	void validateFileValid() {
+		streamObjectConfigurationFile.setBatchSize(Long.valueOf(100L));
+		streamObjectConfigurationFile.setContext(context);
+		streamObjectConfigurationFile.setFile(file);
+		streamObjectConfigurationFile.setMicroflow("A microflow");
+		streamObjectConfigurationValidator.validate(streamObjectConfigurationFile);
 	}
 	
 	@Test
-	void validateHttpTrue() {
-//		streamObjectConfigurationValidator.validate(streamObjectConfigurationHttp);
+	void validateHttpValid() {
+		streamObjectConfigurationHttp.setBatchSize(Long.valueOf(100L));
+		streamObjectConfigurationHttp.setContext(context);
+		streamObjectConfigurationHttp.setMicroflow("A microflow");
+		streamObjectConfigurationValidator.validate(streamObjectConfigurationHttp);
 	}
 
 }
