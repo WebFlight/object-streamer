@@ -13,7 +13,7 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.exception.ErrorMessage;
-import objectstreamer.domain.exception.InputEmptyException;
+import objectstreamer.domain.exception.InputValidationException;
 
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 
@@ -63,7 +63,7 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 
 	public void setMicroflow(String microflow) {
 		this.microflow = Optional.ofNullable(microflow)
-				.orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_MICROFLOW));
+				.orElseThrow(() -> new InputValidationException(ErrorMessage.INPUT_PARAMETER_MICROFLOW));
 	}
 
 	public Optional<List<IMendixObject>> getInputParameters() {
@@ -80,7 +80,7 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 
 	public void setBatchSize(Long batchSize) {
 		this.batchSize = Optional.ofNullable(batchSize)
-				.orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_BATCHSIZE));
+				.orElseThrow(() -> new InputValidationException(ErrorMessage.INPUT_PARAMETER_BATCHSIZE));
 	}
 
 }

@@ -9,7 +9,7 @@ import java.util.Optional;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 import objectstreamer.domain.exception.ErrorMessage;
-import objectstreamer.domain.exception.InputEmptyException;
+import objectstreamer.domain.exception.InputValidationException;
 import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
 
@@ -29,7 +29,7 @@ public class StreamObjectConfigurationFileImpl extends StreamObjectConfiguration
 	
 	@Override
 	public void setFile(IMendixObject file) {
-		this.file = Optional.ofNullable(file).orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_FILE));
+		this.file = Optional.ofNullable(file).orElseThrow(() -> new InputValidationException(ErrorMessage.INPUT_PARAMETER_FILE));
 	}
 	
 	protected OutputStream getOutputStream() throws IOException {
