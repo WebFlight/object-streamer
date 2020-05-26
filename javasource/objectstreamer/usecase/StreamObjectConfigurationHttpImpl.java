@@ -10,7 +10,7 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectConfigurationHttpImpl extends StreamObjectConfigurationImpl implements StreamObjectConfigurationHttp {
 	
-	private List<IMendixObject> headers;
+	private Optional<List<IMendixObject>> headers;
 	
 	public StreamObjectConfigurationHttpImpl() {
 		super();
@@ -32,11 +32,11 @@ public class StreamObjectConfigurationHttpImpl extends StreamObjectConfiguration
 	
 	@Override
 	public void setHeaders(List<IMendixObject> headers) {
-		this.headers = headers;
+		this.headers = Optional.ofNullable(headers);;
 	}
 	
 	private Optional<List<IMendixObject>> getHeaders() {
-		return Optional.ofNullable(this.headers);
+		return this.headers;
 	}
 	
 }
