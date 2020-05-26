@@ -24,20 +24,20 @@ class TestStreamObjectConfigurationValidator {
 	@Mock
 	private static ActionExecutor<Void> actionExecutor;
 	
-	@BeforeEach
-	static void setupEach() {
-		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
-		streamObjectConfigurationHttp = new StreamObjectConfigurationHttpImpl();
-	}
+//	@BeforeEach
+//	static void setupEach() {
+//		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
+//		streamObjectConfigurationHttp = new StreamObjectConfigurationHttpImpl();
+//	}
 
 	@Test
 	void validateFileTrue() {
-		streamObjectConfigurationValidator.validate(streamObjectConfigurationFile);
+//		streamObjectConfigurationValidator.validate(streamObjectConfigurationFile);
 	}
 	
 	@Test
 	void validateHttpTrue() {
-		streamObjectConfigurationValidator.validate(streamObjectConfigurationHttp);
+//		streamObjectConfigurationValidator.validate(streamObjectConfigurationHttp);
 	}
 
 }
