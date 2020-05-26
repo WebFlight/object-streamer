@@ -16,45 +16,45 @@ import objectstreamer.domain.exception.ErrorMessage;
 import objectstreamer.domain.exception.InputEmptyException;
 
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
-	
+
 	private IContext context;
 	private XPathBasicQuery xPathQuery;
 	private String microflow;
 	private Optional<List<IMendixObject>> inputParameters;
-	private int batchSize;
-	
-	protected StreamObjectConfigurationImpl () {
+	private Long batchSize;
+
+	protected StreamObjectConfigurationImpl() {
 
 	}
-	
+
 	public void setContext(IContext context) {
 		this.context = context;
 	}
-	
+
 	public XPathBasicQuery getXPathQuery() {
 		return this.xPathQuery;
 	}
-	
+
 	protected IContext getContext() {
 		return this.context;
 	}
-	
+
 	protected XPathBasicQuery getXpathQuery() {
 		return this.xPathQuery;
 	}
-	
+
 	protected OutputStreamWriter getOutputStreamWriter(OutputStream outputStream) {
 		return new OutputStreamWriter(outputStream);
 	}
-	
+
 	protected BufferedWriter getBufferedWriter(OutputStreamWriter outputStreamWriter) {
 		return new BufferedWriter(outputStreamWriter);
 	}
-	
+
 	protected JsonWriter getWriter(BufferedWriter bufferedWriter) {
 		return new JsonWriter(bufferedWriter);
 	}
-	
+
 	abstract protected OutputStream getOutputStream() throws IOException;
 
 	protected String getMicroflow() {
@@ -62,25 +62,25 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	}
 
 	public void setMicroflow(String microflow) {
-		this.microflow = Optional.ofNullable(microflow).orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_MICROFLOW));
+		this.microflow = Optional.ofNullable(microflow)
+				.orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_MICROFLOW));
 	}
-	
+
 	public Optional<List<IMendixObject>> getInputParameters() {
 		return this.inputParameters;
 	}
-	
+
 	public void setInputParameters(List<IMendixObject> inputParameters) {
 		this.inputParameters = Optional.ofNullable(inputParameters);
 	}
 
-	protected int getBatchSize() {
+	protected long getBatchSize() {
 		return batchSize;
 	}
 
-	public void setBatchSize(int batchSize) {
-		this.batchSize = Optional.ofNullable(batchSize).orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_BATCHSIZE));;
+	public void setBatchSize(Long batchSize) {
+		this.batchSize = Optional.ofNullable(batchSize)
+				.orElseThrow(() -> new InputEmptyException(ErrorMessage.INPUT_PARAMETER_BATCHSIZE));
 	}
-	
-	
 
 }

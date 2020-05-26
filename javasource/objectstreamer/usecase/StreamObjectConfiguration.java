@@ -16,6 +16,6 @@ public interface StreamObjectConfiguration {
 	
 	public void setInputParameters(List<IMendixObject> inputParameters);
 	
-	public void setBatchSize(int batchSize);
+	public void setBatchSize(Long batchSize);
 
 }
