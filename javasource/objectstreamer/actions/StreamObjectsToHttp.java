@@ -55,7 +55,7 @@ public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 		StreamObjectConfigurationHttp streamObjectConfiguration = factory.createHttpConfiguration();
 		streamObjectConfiguration.setContext(context);
 		streamObjectConfiguration.setMicroflow(microflow);
-		streamObjectConfiguration.setBatchSize(batchSize.intValue());
+		streamObjectConfiguration.setBatchSize(batchSize);
 		streamObjectConfiguration.setHeaders(__headers);
 		streamObjectConfiguration.setInputParameters(__inputParameters);
 		
