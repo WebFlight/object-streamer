@@ -9,7 +9,7 @@
 		<mendixInstallDir>C:\Program Files\Mendix</mendixInstallDir>
 		<mendixVersion>8.9.0.5487</mendixVersion>
 		<moduleForExport>ObjectStreamer</moduleForExport>
-		<junit-platform.version>5.3.1</junit-platform.version>
+		<junit-platform.version>5.6.2</junit-platform.version>
 	</properties>
 	<build>
 		<outputDirectory>deployment/run/bin</outputDirectory>
