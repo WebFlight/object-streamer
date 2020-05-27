@@ -40,7 +40,7 @@ public class StreamObjectConfigurationFileImpl extends StreamObjectConfiguration
 		return pipedOutputStream;
 	}
 	
-	private IMendixObject getFile() {
+	protected IMendixObject getFile() {
 		return this.file;
 	}
 	

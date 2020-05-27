@@ -70,7 +70,7 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 		this.inputParameters = inputParameters;
 	}
 
-	protected long getBatchSize() {
+	protected Long getBatchSize() {
 		return batchSize;
 	}
 
