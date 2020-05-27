@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.google.gson.stream.JsonWriter;
@@ -72,10 +71,7 @@ public class ObjectStreamer {
 		} catch (IOException e) {
 			Core.getLogger("Streamer").error(e.getMessage(), e);
 			;
-		} catch (NoSuchElementException e) {
-			Core.getLogger("Streamer").error(e.getMessage(), e);
-			;
-		}
+		} 
 	}
 	
 	private void createEmptyContext() {
