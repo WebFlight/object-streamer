@@ -21,7 +21,7 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	private Long batchSize;
 
 	protected StreamObjectConfigurationImpl() {
-
+		
 	}
 
 	public void setContext(IContext context) {

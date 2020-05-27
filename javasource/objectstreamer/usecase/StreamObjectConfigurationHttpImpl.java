@@ -13,7 +13,7 @@ public class StreamObjectConfigurationHttpImpl extends StreamObjectConfiguration
 	private List<IMendixObject> headers;
 	
 	public StreamObjectConfigurationHttpImpl() {
-		super();
+	
 	}
 
 	

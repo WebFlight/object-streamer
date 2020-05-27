@@ -14,6 +14,8 @@ import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfigurationFile;
+import objectstreamer.usecase.StreamObjectConfigurationValidator;
+
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
@@ -56,6 +58,8 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 		streamObjectConfiguration.setBatchSize(batchSize);
 		streamObjectConfiguration.setInputParameters(__inputParameters);
 		
+		StreamObjectConfigurationValidator validator = new StreamObjectConfigurationValidator();
+		validator.validate(streamObjectConfiguration);
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
 		file.getClass();
