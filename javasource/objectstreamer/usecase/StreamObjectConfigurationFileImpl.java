@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
-import java.util.Optional;
 
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-import objectstreamer.domain.exception.ErrorMessage;
-import objectstreamer.domain.exception.InputValidationException;
 import objectstreamer.domain.port.ActionExecutor;
 import objectstreamer.domain.port.FileStreamWriter;
 
@@ -29,7 +26,7 @@ public class StreamObjectConfigurationFileImpl extends StreamObjectConfiguration
 	
 	@Override
 	public void setFile(IMendixObject file) {
-		this.file = Optional.ofNullable(file).orElseThrow(() -> new InputValidationException(ErrorMessage.INPUT_PARAMETER_FILE));
+		this.file = file;
 	}
 	
 	protected OutputStream getOutputStream() throws IOException {
@@ -43,7 +40,7 @@ public class StreamObjectConfigurationFileImpl extends StreamObjectConfiguration
 		return pipedOutputStream;
 	}
 	
-	private IMendixObject getFile() {
+	protected IMendixObject getFile() {
 		return this.file;
 	}
 	

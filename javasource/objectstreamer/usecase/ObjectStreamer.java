@@ -26,6 +26,7 @@ public class ObjectStreamer {
 	}
 
 	public void stream() {
+		
 		try (OutputStream outputStream = this.streamObjectConfiguration.getOutputStream();
 				OutputStreamWriter outputStreamWriter = this.streamObjectConfiguration.getOutputStreamWriter(outputStream);
 				BufferedWriter bufferedWriter = this.streamObjectConfiguration.getBufferedWriter(outputStreamWriter);

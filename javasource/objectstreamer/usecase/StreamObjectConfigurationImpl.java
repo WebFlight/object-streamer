@@ -12,19 +12,16 @@ import com.mendix.datastorage.XPathBasicQuery;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
-import objectstreamer.domain.exception.ErrorMessage;
-import objectstreamer.domain.exception.InputValidationException;
-
 public abstract class StreamObjectConfigurationImpl implements StreamObjectConfiguration {
 
 	private IContext context;
 	private XPathBasicQuery xPathQuery;
 	private String microflow;
-	private Optional<List<IMendixObject>> inputParameters;
+	private List<IMendixObject> inputParameters;
 	private Long batchSize;
 
 	protected StreamObjectConfigurationImpl() {
-
+		
 	}
 
 	public void setContext(IContext context) {
@@ -62,25 +59,23 @@ public abstract class StreamObjectConfigurationImpl implements StreamObjectConfi
 	}
 
 	public void setMicroflow(String microflow) {
-		this.microflow = Optional.ofNullable(microflow)
-				.orElseThrow(() -> new InputValidationException(ErrorMessage.INPUT_PARAMETER_MICROFLOW));
+		this.microflow = microflow;
 	}
 
 	public Optional<List<IMendixObject>> getInputParameters() {
-		return this.inputParameters;
+		return Optional.ofNullable(inputParameters);
 	}
 
 	public void setInputParameters(List<IMendixObject> inputParameters) {
-		this.inputParameters = Optional.ofNullable(inputParameters);
+		this.inputParameters = inputParameters;
 	}
 
-	protected long getBatchSize() {
+	protected Long getBatchSize() {
 		return batchSize;
 	}
 
 	public void setBatchSize(Long batchSize) {
-		this.batchSize = Optional.ofNullable(batchSize)
-				.orElseThrow(() -> new InputValidationException(ErrorMessage.INPUT_PARAMETER_BATCHSIZE));
+		this.batchSize = batchSize;
 	}
 
 }
