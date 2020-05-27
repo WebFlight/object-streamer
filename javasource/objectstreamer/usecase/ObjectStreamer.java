@@ -14,6 +14,9 @@ import com.mendix.core.Core;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 
+import objectstreamer.domain.exception.ErrorMessage;
+import objectstreamer.domain.exception.WriteException;
+
 public class ObjectStreamer {
 
 	private StreamObjectConfigurationImpl streamObjectConfiguration;
@@ -69,8 +72,7 @@ public class ObjectStreamer {
 			writer.endArray();
 
 		} catch (IOException e) {
-			Core.getLogger("Streamer").error(e.getMessage(), e);
-			;
+			throw new WriteException(ErrorMessage.WRITE, e);
 		} 
 	}
 	
