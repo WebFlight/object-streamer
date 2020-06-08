@@ -14,6 +14,7 @@ import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfigurationHttp;
+import objectstreamer.usecase.StreamObjectConfigurationInitializer;
 import objectstreamer.usecase.StreamObjectConfigurationValidator;
 
 import com.mendix.systemwideinterfaces.core.IMendixObject;
@@ -54,12 +55,8 @@ public class StreamObjectsToHttp extends CustomJavaAction<java.lang.Void>
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
-		StreamObjectConfigurationHttp streamObjectConfiguration = factory.createHttpConfiguration();
-		streamObjectConfiguration.setContext(context);
-		streamObjectConfiguration.setMicroflow(microflow);
-		streamObjectConfiguration.setBatchSize(batchSize);
-		streamObjectConfiguration.setHeaders(__headers);
-		streamObjectConfiguration.setInputParameters(__inputParameters);
+		StreamObjectConfigurationInitializer initializer = new StreamObjectConfigurationInitializer(factory);
+		StreamObjectConfigurationHttp streamObjectConfiguration = initializer.initializeHttp(context, microflow, batchSize, __headers, __inputParameters);
 		
 		StreamObjectConfigurationValidator validator = new StreamObjectConfigurationValidator();
 		validator.validate(streamObjectConfiguration);
