@@ -14,6 +14,7 @@ import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
 import objectstreamer.usecase.StreamObjectConfigurationFile;
+import objectstreamer.usecase.StreamObjectConfigurationInitializer;
 import objectstreamer.usecase.StreamObjectConfigurationValidator;
 
 import com.mendix.systemwideinterfaces.core.IMendixObject;
@@ -51,17 +52,15 @@ public class StreamObjectsToFile extends CustomJavaAction<java.lang.Void>
 		
 		StreamObjectConfigurationFactory factory = new StreamObjectConfigurationFactory();
 		
-		StreamObjectConfigurationFile streamObjectConfiguration = factory.createFileConfiguration();
-		streamObjectConfiguration.setContext(context);
-		streamObjectConfiguration.setFile(__file);
-		streamObjectConfiguration.setMicroflow(microflow);
-		streamObjectConfiguration.setBatchSize(batchSize);
-		streamObjectConfiguration.setInputParameters(__inputParameters);
+		StreamObjectConfigurationInitializer initializer = new StreamObjectConfigurationInitializer(factory);
+		StreamObjectConfigurationFile streamObjectConfiguration = initializer.initializeFile(context, __file, microflow, batchSize, __inputParameters);
 		
 		StreamObjectConfigurationValidator validator = new StreamObjectConfigurationValidator();
 		validator.validate(streamObjectConfiguration);
+		
 		ObjectStreamer objectStreamer = new ObjectStreamer(streamObjectConfiguration);
 		objectStreamer.stream();
+		
 		file.getClass();
 		return null;
 		// END USER CODE
