@@ -19,7 +19,6 @@ public enum ErrorMessage {
 		return description;
 	}
 
-
 	@Override
 	public String toString() {
 		return description;
