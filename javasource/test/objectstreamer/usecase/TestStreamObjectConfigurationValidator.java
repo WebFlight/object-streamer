@@ -36,7 +36,6 @@ class TestStreamObjectConfigurationValidator {
 	
 	@BeforeEach
 	void setupEach() {
-		System.out.println(file==null);
 		streamObjectConfigurationFile = new StreamObjectConfigurationFileImpl(fileStreamWriter, actionExecutor);
 		streamObjectConfigurationFile.setBatchSize(Long.valueOf(100L));
 		streamObjectConfigurationFile.setContext(context);

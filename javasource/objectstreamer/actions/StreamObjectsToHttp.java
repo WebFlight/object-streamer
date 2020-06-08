@@ -13,7 +13,6 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import objectstreamer.config.StreamObjectConfigurationFactory;
 import objectstreamer.usecase.ObjectStreamer;
-import objectstreamer.usecase.StreamObjectConfigurationFile;
 import objectstreamer.usecase.StreamObjectConfigurationHttp;
 import objectstreamer.usecase.StreamObjectConfigurationInitializer;
 import objectstreamer.usecase.StreamObjectConfigurationValidator;
